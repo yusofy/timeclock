@@ -29,7 +29,7 @@ from {$db_prefix}employees
 where displayname like '$q_search%'
 End_Of_SQL;
 
-$result = mysql_query($query);
+$result = mysqli_query($db, $query);
 if (!$result) {
     trigger_error('suggest.ajax.php: error: ' . mysql_error(), E_USER_WARNING);
     die();

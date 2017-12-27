@@ -27,7 +27,7 @@ select {$db_prefix}employees.*, {$db_prefix}info.*, {$db_prefix}punchlist.*
 {$office_clause}{$groups_clause}order by $sortcolumn $sortdirection
 End_Of_SQL;
 
-$result = mysql_query($query)
+$result = mysqli_query($db, $query)
 or trigger_error("punchclock_display: Cannot select employees. " . mysql_error(), E_USER_WARNING);
 
 $row_count = 0;

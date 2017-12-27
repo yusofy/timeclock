@@ -23,11 +23,11 @@ function lookup_employee($empfullname) {
     global $db_prefix;
     $name = null;
     $q_empfullname = mysql_real_escape_string($empfullname);
-    $result = mysql_query("SELECT empfullname FROM {$db_prefix}employees WHERE empfullname = '$q_empfullname'");
+    $result = mysqli_query($db, "SELECT empfullname FROM {$db_prefix}employees WHERE empfullname = '$q_empfullname'");
     if (!$result || mysql_num_rows($result) == 0) {
         // Check if displayname was entered.
         $q_empfullname = mysql_real_escape_string(strtolower($empfullname));
-        $result = mysql_query("SELECT empfullname FROM {$db_prefix}employees WHERE lower(displayname) = '$q_empfullname'")
+        $result = mysqli_query($db, "SELECT empfullname FROM {$db_prefix}employees WHERE lower(displayname) = '$q_empfullname'")
         or trigger_error('lookup_employee: no result: ' . mysql_error(), E_USER_WARNING);
     }
     if ($result && mysql_num_rows($result) == 1) {
@@ -43,7 +43,7 @@ function lookup_employee($empfullname) {
 function get_employee_name($empfullname) {
     global $db_prefix;
     $q_empfullname = mysql_real_escape_string($empfullname);
-    $result = mysql_query("SELECT displayname FROM {$db_prefix}employees WHERE empfullname = '$q_empfullname'");
+    $result = mysqli_query($db, "SELECT displayname FROM {$db_prefix}employees WHERE empfullname = '$q_empfullname'");
     if (!$result) {
         trigger_error('get_employee_name: no result: ' . mysql_error(), E_USER_WARNING);
 
@@ -59,7 +59,7 @@ function get_employee_name($empfullname) {
 function get_employee_password($empfullname) {
     global $db_prefix;
     $q_empfullname = mysql_real_escape_string($empfullname);
-    $result = mysql_query("SELECT employee_passwd FROM {$db_prefix}employees WHERE empfullname = '$q_empfullname'");
+    $result = mysqli_query($db, "SELECT employee_passwd FROM {$db_prefix}employees WHERE empfullname = '$q_empfullname'");
     if (!$result) {
         trigger_error('get_employee_password: no result: ' . mysql_error(), E_USER_WARNING);
 
@@ -88,7 +88,7 @@ function save_employee_password($empfullname, $new_password) {
     $password = crypt($new_password, 'xy');
     $q_empfullname = mysql_real_escape_string($empfullname);
     $q_password = mysql_real_escape_string($password);
-    $result = mysql_query("UPDATE {$db_prefix}employees SET employee_passwd = '$q_password' WHERE empfullname = '$q_empfullname'");
+    $result = mysqli_query($db, "UPDATE {$db_prefix}employees SET employee_passwd = '$q_password' WHERE empfullname = '$q_empfullname'");
     if (!$result) {
         trigger_error('save_employee_password: cannot save new password: ' . mysql_error(), E_USER_WARNING);
 
@@ -114,7 +114,7 @@ select {$db_prefix}employees.*, {$db_prefix}info.*, {$db_prefix}punchlist.*
  where {$db_prefix}employees.disabled <> '1'
    and employees.empfullname = '$q_empfullname'
 End_Of_SQL;
-    $result = mysql_query($query);
+    $result = mysqli_query($db, $query);
     if (!$result) {
         trigger_error('get_employee_status: no result: ' . mysql_error(), E_USER_WARNING);
 
