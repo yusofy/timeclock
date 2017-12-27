@@ -52,7 +52,7 @@ $cloud_condition_array = array(
 $weather_offset = 0;
 
 /* Make a connection to the MySQL database: */
-if (mysql_pconnect($db_hostname, $db_username, $db_password)) {
+if (mysqli_connect($db_hostname, $db_username, $db_password)) {
     mysql_select_db($db_name);
 } else {
     echo "<p>Unable to connect to MySQL database!</p>";
