@@ -41,7 +41,7 @@ if (!$db) {
     echo "Error: Could not connect to the database. Please try again later.";
     exit;
 }
-mysql_select_db($db_name);
+mysqli_select_db($db, $db_name);
 
 $table = "dbversion";
 $result = mysql_query("SHOW TABLES LIKE '" . $db_prefix . $table . "'");

@@ -53,7 +53,7 @@ $weather_offset = 0;
 
 /* Make a connection to the MySQL database: */
 if (mysqli_connect($db_hostname, $db_username, $db_password)) {
-    mysql_select_db($db_name);
+    mysqli_select_db($db, $db_name);
 } else {
     echo "<p>Unable to connect to MySQL database!</p>";
 }
