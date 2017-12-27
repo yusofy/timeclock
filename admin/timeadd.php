@@ -269,7 +269,7 @@ if ($request == 'GET') {
         exit;
     }
 
-    $post_notes = preg_match('/' . "[^[:alnum:] \,\.\?-]" . '/', "", $post_notes);
+    $post_notes = preg_match('/' . "[^[[:alnum:]] \,\.\?-]" . '/', "", $post_notes);
     if ($post_notes == "") {
         $post_notes = " ";
     }
