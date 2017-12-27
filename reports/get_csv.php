@@ -3,7 +3,7 @@
 include '../config.inc.php';
 include '../functions.php';
 
-@$db = mysql_pconnect($db_hostname, $db_username, $db_password);
+@$db = mysqli_connect($db_hostname, $db_username, $db_password);
 if (!$db) {
     echo "Error: Could not connect to the database. Please try again later.";
     exit;
