@@ -36,7 +36,7 @@ mysqli_select_db($db, $db_name);
 
 $table = "dbversion";
 $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-@$rows = mysql_num_rows($result);
+@$rows = mysqli_num_rows($result);
 if ($rows == "1") {
     $dbexists = "1";
 } else {
@@ -44,7 +44,7 @@ if ($rows == "1") {
 }
 
 $db_version_result = mysqli_query($db, "select * from " . $db_prefix . "dbversion");
-while (@$row = mysql_fetch_array($db_version_result)) {
+while (@$row = mysqli_fetch_array($db_version_result)) {
     @$my_dbversion = "" . $row["dbversion"] . "";
 }
 

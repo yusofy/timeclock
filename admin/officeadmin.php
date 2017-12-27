@@ -83,15 +83,15 @@ $row_count = 0;
 $query = "select * from " . $db_prefix . "offices order by officename";
 $result = mysqli_query($db, $query);
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 
     $query2 = "select office from " . $db_prefix . "employees where office = '" . $row['officename'] . "'";
     $result2 = mysqli_query($db, $query2);
-    @$user_cnt = mysql_num_rows($result2);
+    @$user_cnt = mysqli_num_rows($result2);
 
     $query3 = "select * from " . $db_prefix . "groups where officeid = '" . $row['officeid'] . "'";
     $result3 = mysqli_query($db, $query3);
-    @$group_cnt = mysql_num_rows($result3);
+    @$group_cnt = mysqli_num_rows($result3);
 
     $row_count++;
     $row_color = ($row_count % 2) ? $color2 : $color1;

@@ -43,7 +43,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "punchlist where punchitems = '" . $get_status . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $punchitem = "" . $row['punchitems'] . "";
         $color = "" . $row['color'] . "";
@@ -148,7 +148,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "punchlist where punchitems = '" . $post_statusname . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $punchitem = "" . $row['punchitems'] . "";
         $color = "" . $row['color'] . "";

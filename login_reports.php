@@ -16,7 +16,7 @@ if (isset($_POST['login_userid']) && (isset($_POST['login_password']))) {
               where empfullname = '" . $login_userid . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $reports_username = "" . $row['empfullname'] . "";
         $reports_password = "" . $row['employee_passwd'] . "";

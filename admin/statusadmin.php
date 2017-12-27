@@ -82,7 +82,7 @@ $row_count = 0;
 $query = "select * from " . $db_prefix . "punchlist";
 $result = mysqli_query($db, $query);
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 
     $punchitem = "" . $row['punchitems'] . "";
     $color = "" . $row['color'] . "";

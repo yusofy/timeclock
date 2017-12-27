@@ -92,11 +92,11 @@ if ($request == 'GET') {
                       <select name='select_office_name'>\n";
     echo "                        <option value ='1'>Choose One</option>\n";
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         echo "                        <option>" . $row['officename'] . "</option>\n";
     }
     echo "                      </select>&nbsp;*</td></tr>\n";
-    mysql_free_result($result);
+    mysqli_free_result($result);
 
     echo "              <tr><td class=table_rows align=right colspan=3 style='color:red;font-family:Tahoma;font-size:10px;'>*&nbsp;required&nbsp;</td></tr>\n";
     echo "            </table>\n";
@@ -167,11 +167,11 @@ if ($request == 'GET') {
     if (!empty($select_office_name)) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $select_office_name . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getoffice = "" . $row['officename'] . "";
             $officeid = "" . $row['officeid'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if ((!isset($getoffice)) && ($select_office_name != '1')) {
         echo "Office is not defined for this user. Go back and associate this user with an office.\n";
@@ -183,7 +183,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "groups where groupname = '" . $post_groupname . "' and officeid = '" . @$officeid . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         $tmp_groupname = "" . $row['groupname'] . "";
     }
 
@@ -262,7 +262,7 @@ if ($request == 'GET') {
                       <select name='select_office_name'>\n";
         echo "                        <option value ='1'>Choose One</option>\n";
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             if ("" . $row['officename'] . "" == $select_office_name) {
                 echo "                        <option selected>" . $row['officename'] . "</option>\n";
             } else {
@@ -270,7 +270,7 @@ if ($request == 'GET') {
             }
         }
         echo "                      </select>&nbsp;*</td></tr>\n";
-        mysql_free_result($result);
+        mysqli_free_result($result);
 
         echo "              <tr><td class=table_rows align=right colspan=3 style='color:red;font-family:Tahoma;font-size:10px;'>*&nbsp;required&nbsp;</td></tr>\n";
         echo "            </table>\n";

@@ -104,12 +104,12 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "employees where empfullname = '" . $get_user . "' order by empfullname";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $username = stripslashes("" . $row['empfullname'] . "");
         $displayname = stripslashes("" . $row['displayname'] . "");
     }
-    mysql_free_result($result);
+    mysqli_free_result($result);
 
     $get_user = stripslashes($get_user);
 
@@ -161,7 +161,7 @@ if ($request == 'GET') {
     @$final_username = $_POST['final_username'];
     @$final_inout = $_POST['final_inout'];
     @$final_notes = $_POST['final_notes'];
-    @$final_mysql_timestamp = $_POST['final_mysql_timestamp'];
+    @$final_mysqli_timestamp = $_POST['final_mysqli_timestamp'];
     @$final_num_rows = $_POST['final_num_rows'];
     @$final_time = $_POST['final_time'];
     @$delete_time_checkbox = $_POST['delete_time_checkbox'];
@@ -178,7 +178,7 @@ if ($request == 'GET') {
     if (!empty($get_user)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $get_user . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_get_user = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_get_user)) {
@@ -190,7 +190,7 @@ if ($request == 'GET') {
     if (!empty($post_username)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_username = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_username)) {
@@ -202,7 +202,7 @@ if ($request == 'GET') {
     if (!empty($post_displayname)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and displayname = '" . $post_displayname . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_post_displayname = "" . $row['displayname'] . "";
         }
         if (!isset($tmp_post_displayname)) {
@@ -424,15 +424,15 @@ if ($request == 'GET') {
                     echo "Something is fishy here.\n";
                     exit;
                 }
-                //if ((strlen($final_mysql_timestamp[$x]) != "10") || (!is_integer($final_mysql_timestamp[$x]))) {echo "Something is fishy here.\n"; exit;}
+                //if ((strlen($final_mysqli_timestamp[$x]) != "10") || (!is_integer($final_mysqli_timestamp[$x]))) {echo "Something is fishy here.\n"; exit;}
 
                 $query_sel = "select * from " . $db_prefix . "punchlist where punchitems = '" . $final_inout[$x] . "'";
                 $result_sel = mysqli_query($db, $query_sel);
 
-                while ($row = mysql_fetch_array($result_sel)) {
+                while ($row = mysqli_fetch_array($result_sel)) {
                     $punchitems = "" . $row['punchitems'] . "";
                 }
-                mysql_free_result($result_sel);
+                mysqli_free_result($result_sel);
                 if (!isset($punchitems)) {
                     echo "Something is fishy here.\n";
                     exit;
@@ -441,10 +441,10 @@ if ($request == 'GET') {
                 $final_notes[$x] = ereg_replace("[^[:alnum:] \,\.\?-]", "", $final_notes[$x]);
                 $final_username[$x] = addslashes($final_username[$x]);
 
-                $query5 = "select * from " . $db_prefix . "info where (fullname = '" . $final_username[$x] . "') and (timestamp = '" . $final_mysql_timestamp[$x] . "') and
+                $query5 = "select * from " . $db_prefix . "info where (fullname = '" . $final_username[$x] . "') and (timestamp = '" . $final_mysqli_timestamp[$x] . "') and
            (`inout` = '" . $final_inout[$x] . "') and (notes = '" . $final_notes[$x] . "')";
                 $result5 = mysqli_query($db, $query5);
-                @$tmp_num_rows = mysql_num_rows($result5);
+                @$tmp_num_rows = mysqli_num_rows($result5);
 
                 if ((isset($tmp_num_rows)) && (@$tmp_num_rows != '1')) {
                     echo "Something is fishy here.\n";
@@ -459,7 +459,7 @@ if ($request == 'GET') {
 
                     // begin post validation //
 
-                    $tmp_time[$x] = date("$timefmt", $final_mysql_timestamp[$x] + $tzo);
+                    $tmp_time[$x] = date("$timefmt", $final_mysqli_timestamp[$x] + $tzo);
                     if ($tmp_time[$x] != $final_time[$x]) {
                         echo "Something is fishy here.\n";
                         exit;
@@ -472,19 +472,19 @@ if ($request == 'GET') {
                     $query = "select * from " . $db_prefix . "employees where empfullname = '" . $final_username[$x] . "'";
                     $result = mysqli_query($db, $query);
 
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysqli_fetch_array($result)) {
                         $tmp_empfullname_1 = stripslashes("" . $row['empfullname'] . "");
                         $tmp_tstamp_1 = "" . $row['tstamp'] . "";
                     }
 
                     $tmp_tmp_username[$x] = stripslashes($final_username[$x]);
 
-                    if (($tmp_empfullname_1 == $tmp_tmp_username[$x]) && ($tmp_tstamp_1 == $final_mysql_timestamp[$x])) {
+                    if (($tmp_empfullname_1 == $tmp_tmp_username[$x]) && ($tmp_tstamp_1 == $final_mysqli_timestamp[$x])) {
 
                         $query2 = "select * from " . $db_prefix . "info where fullname = '" . $final_username[$x] . "' order by timestamp desc limit 1,1";
                         $result2 = mysqli_query($db, $query2);
 
-                        while ($row2 = mysql_fetch_array($result2)) {
+                        while ($row2 = mysqli_fetch_array($result2)) {
                             $tmp_empfullname_2 = stripslashes("" . $row2['fullname'] . "");
                             $tmp_empfullname_2 = addslashes($tmp_empfullname_2);
                             $tmp_tstamp_2 = "" . $row2['timestamp'] . "";
@@ -497,18 +497,18 @@ if ($request == 'GET') {
 
                     // delete the time from the info table for $post_username
 
-                    $query4 = "delete from " . $db_prefix . "info where fullname = '" . $final_username[$x] . "' and timestamp = '" . $final_mysql_timestamp[$x] . "'";
+                    $query4 = "delete from " . $db_prefix . "info where fullname = '" . $final_username[$x] . "' and timestamp = '" . $final_mysqli_timestamp[$x] . "'";
                     $result4 = mysqli_query($db, $query4);
 
                     // add the results to the audit table
 
                     if (strtolower($ip_logging) == "yes") {
                         $query6 = "insert into " . $db_prefix . "audit (modified_by_ip, modified_by_user, modified_when, modified_from, modified_to, modified_why, user_modified) values
-           ('" . $connecting_ip . "', '" . $user . "', '" . $time_tz_stamp . "', '" . $final_mysql_timestamp[$x] . "', '0', '" . $post_why . "', '" . $final_username[$x] . "')";
+           ('" . $connecting_ip . "', '" . $user . "', '" . $time_tz_stamp . "', '" . $final_mysqli_timestamp[$x] . "', '0', '" . $post_why . "', '" . $final_username[$x] . "')";
                         $result6 = mysqli_query($db, $query6);
                     } else {
                         $query6 = "insert into " . $db_prefix . "audit (modified_by_user, modified_when, modified_from, modified_to, modified_why, user_modified) values
-           ('" . $user . "', '" . $time_tz_stamp . "', '" . $final_mysql_timestamp[$x] . "', '0', '" . $post_why . "', '" . $final_username[$x] . "')";
+           ('" . $user . "', '" . $time_tz_stamp . "', '" . $final_mysqli_timestamp[$x] . "', '0', '" . $post_why . "', '" . $final_username[$x] . "')";
                         $result6 = mysqli_query($db, $query6);
                     }
 
@@ -562,17 +562,17 @@ if ($request == 'GET') {
             $username = array();
             $inout = array();
             $notes = array();
-            $mysql_timestamp = array();
+            $mysqli_timestamp = array();
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $time_set = '1';
                 $username[] = "" . $row['fullname'] . "";
                 $inout[] = "" . $row['inout'] . "";
                 $notes[] = "" . $row['notes'] . "";
-                $mysql_timestamp[] = "" . $row['timestamp'] . "";
+                $mysqli_timestamp[] = "" . $row['timestamp'] . "";
             }
-            $num_rows = mysql_num_rows($result);
+            $num_rows = mysqli_num_rows($result);
 
             $post_username = stripslashes($post_username);
 
@@ -596,7 +596,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + $tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
@@ -609,7 +609,7 @@ if ($request == 'GET') {
                 echo "              <input type='hidden' name='final_username[$x]' value=\"$username[$x]\">\n";
                 echo "              <input type='hidden' name='final_inout[$x]' value=\"$inout[$x]\">\n";
                 echo "              <input type='hidden' name='final_notes[$x]' value=\"$notes[$x]\">\n";
-                echo "              <input type='hidden' name='final_mysql_timestamp[$x]' value=\"$mysql_timestamp[$x]\">\n";
+                echo "              <input type='hidden' name='final_mysqli_timestamp[$x]' value=\"$mysqli_timestamp[$x]\">\n";
                 echo "              <input type='hidden' name='final_time[$x]' value=\"$time[$x]\">\n";
                 $row_count++;
             }
@@ -660,17 +660,17 @@ if ($request == 'GET') {
             $username = array();
             $inout = array();
             $notes = array();
-            $mysql_timestamp = array();
+            $mysqli_timestamp = array();
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $time_set = '1';
                 $username[] = "" . $row['fullname'] . "";
                 $inout[] = "" . $row['inout'] . "";
                 $notes[] = "" . $row['notes'] . "";
-                $mysql_timestamp[] = "" . $row['timestamp'] . "";
+                $mysqli_timestamp[] = "" . $row['timestamp'] . "";
             }
-            $num_rows = mysql_num_rows($result);
+            $num_rows = mysqli_num_rows($result);
         }
 
         $post_username = stripslashes($post_username);
@@ -744,7 +744,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + $tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
@@ -757,7 +757,7 @@ if ($request == 'GET') {
                 echo "              <input type='hidden' name='final_username[$x]' value=\"$username[$x]\">\n";
                 echo "              <input type='hidden' name='final_inout[$x]' value=\"$inout[$x]\">\n";
                 echo "              <input type='hidden' name='final_notes[$x]' value=\"$notes[$x]\">\n";
-                echo "              <input type='hidden' name='final_mysql_timestamp[$x]' value=\"$mysql_timestamp[$x]\">\n";
+                echo "              <input type='hidden' name='final_mysqli_timestamp[$x]' value=\"$mysqli_timestamp[$x]\">\n";
                 echo "              <input type='hidden' name='final_time[$x]' value=\"$time[$x]\">\n";
                 $row_count++;
             }

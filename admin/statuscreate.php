@@ -163,7 +163,7 @@ if ($request == 'GET') {
         $query = "select punchitems from " . $db_prefix . "punchlist where punchitems = '" . $post_statusname . "'";
         $result = mysqli_query($db, $query);
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $dupe = '1';
         }
     }

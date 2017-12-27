@@ -158,7 +158,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "offices where officename = '" . $post_officename . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         $tmp_officename = "" . $row['officename'] . "";
     }
 
@@ -320,10 +320,10 @@ if ($request == 'GET') {
             $query2 = "select * from " . $db_prefix . "offices where officename = '" . $post_officename . "'";
             $result2 = mysqli_query($db, $query2);
 
-            while ($row = mysql_fetch_array($result2)) {
+            while ($row = mysqli_fetch_array($result2)) {
                 $tmp_officeid = "" . $row['officeid'] . "";
             }
-            mysql_free_result($result2);
+            mysqli_free_result($result2);
 
             for ($x = 0; $x < $how_many; $x++) {
                 $y = $x + 1;

@@ -98,7 +98,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "employees where empfullname = '" . $get_user . "' order by empfullname";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $username = stripslashes("" . $row['empfullname'] . "");
         $displayname = stripslashes("" . $row['displayname'] . "");
@@ -109,14 +109,14 @@ if ($request == 'GET') {
         $reports = "" . $row['reports'] . "";
         $time_admin = "" . $row['time_admin'] . "";
     }
-    mysql_free_result($result);
+    mysqli_free_result($result);
     $get_user = stripslashes($get_user);
 
     // make sure you cannot delete the last admin user in the system!! //
 
     if (!empty($admin)) {
         $admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where admin = '1'");
-        @$admin_count_rows = mysql_num_rows($admin_count);
+        @$admin_count_rows = mysqli_num_rows($admin_count);
         if (@$admin_count_rows == "1") {
             $evil = "1";
         }
@@ -210,7 +210,7 @@ if ($request == 'GET') {
     if (!empty($post_username)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_username = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_username)) {
@@ -222,7 +222,7 @@ if ($request == 'GET') {
     if (!empty($display_name)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and displayname = '" . $display_name . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_display_name = "" . $row['displayname'] . "";
         }
         if (!isset($tmp_display_name)) {
@@ -234,7 +234,7 @@ if ($request == 'GET') {
     if (!empty($email_addy)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and email = '" . $email_addy . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_email_addy = "" . $row['email'] . "";
         }
         if (!isset($tmp_email_addy)) {
@@ -246,7 +246,7 @@ if ($request == 'GET') {
     if (!empty($office_name)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and office = '" . $office_name . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_office_name = "" . $row['office'] . "";
         }
         if (!isset($tmp_office_name)) {
@@ -258,7 +258,7 @@ if ($request == 'GET') {
     if (!empty($group_name)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and groups = '" . $group_name . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_group_name = "" . $row['groups'] . "";
         }
         if (!isset($tmp_group_name)) {

@@ -226,10 +226,10 @@ if (($post_username == "") && ($display_name == "") && ($email_addy == "")) {
 if (!empty($office_name)) {
     $query = "select * from " . $db_prefix . "offices where officename = '" . $office_name . "'";
     $result = mysqli_query($db, $query);
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         $tmp_officename = "" . $row['officename'] . "";
     }
-    mysql_free_result($result);
+    mysqli_free_result($result);
     if (!isset($tmp_officename)) {
         echo "Office is not defined.\n";
         exit;
@@ -239,10 +239,10 @@ if (!empty($office_name)) {
 if (!empty($group_name)) {
     $query = "select * from " . $db_prefix . "groups where groupname = '" . $group_name . "'";
     $result = mysqli_query($db, $query);
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         $tmp_groupname = "" . $row['groupname'] . "";
     }
-    mysql_free_result($result);
+    mysqli_free_result($result);
     if (!isset($tmp_officename)) {
         echo "Group is not defined.\n";
         exit;
@@ -368,11 +368,11 @@ $tmp_var = stripslashes($tmp_var);
 $tmp_var2 = stripslashes($tmp_var2);
 $row_count = "0";
 
-while ($row = mysql_fetch_array($result4)) {
+while ($row = mysqli_fetch_array($result4)) {
 
-@$user_count_rows = mysql_num_rows($user_count);
-@$admin_count_rows = mysql_num_rows($admin_count);
-@$reports_count_rows = mysql_num_rows($reports_count);
+@$user_count_rows = mysqli_num_rows($user_count);
+@$admin_count_rows = mysqli_num_rows($admin_count);
+@$reports_count_rows = mysqli_num_rows($reports_count);
 
 $row_count++;
 
@@ -460,7 +460,7 @@ echo "
     <img border=0 src='../images/icons/delete.png'/></td>\n";
 echo "              </tr>\n";
 }
-mysql_free_result($result4);
+mysqli_free_result($result4);
 
 if ($row_count == "0") {
 

@@ -93,7 +93,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "offices where officename = '" . $get_office . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $officename = "" . $row['officename'] . "";
         $officeid = "" . $row['officeid'] . "";
@@ -110,11 +110,11 @@ if ($request == 'GET') {
 
     $query2 = "select * from " . $db_prefix . "employees where office = '" . $get_office . "'";
     $result2 = mysqli_query($db, $query2);
-    @$user_cnt = mysql_num_rows($result2);
+    @$user_cnt = mysqli_num_rows($result2);
 
     $query3 = "select * from " . $db_prefix . "groups where officeid = '" . $officeid . "'";
     $result3 = mysqli_query($db, $query3);
-    @$group_cnt = mysql_num_rows($result3);
+    @$group_cnt = mysqli_num_rows($result3);
 
     echo "            <form name='form' action='$self' method='post'>\n";
     echo "            <table align=center class=table_border width=60% border=0 cellpadding=3 cellspacing=0>\n";
@@ -169,13 +169,13 @@ if ($request == 'GET') {
         $query = "select * from " . $db_prefix . "groups where officeid = ('" . $officeid . "') order by groupname";
         $result = mysqli_query($db, $query);
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
 
             $tmp_group = "" . $row['groupname'] . "";
 
             $query3 = "select * from " . $db_prefix . "employees where office = '" . $officename . "' and groups = '" . $tmp_group . "'";
             $result3 = mysqli_query($db, $query3);
-            @$group_user_cnt = mysql_num_rows($result3);
+            @$group_user_cnt = mysqli_num_rows($result3);
 
             $row_count++;
             $row_color = ($row_count % 2) ? $color2 : $color1;
@@ -221,10 +221,10 @@ if ($request == 'GET') {
     if (!empty($get_office)) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $get_office . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getoffice = "" . $row['officename'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
         if (!isset($getoffice)) {
             echo "Office is not defined.\n";
             exit;
@@ -234,10 +234,10 @@ if ($request == 'GET') {
     if (!empty($post_officeid)) {
         $query = "select * from " . $db_prefix . "offices where officeid = '" . $post_officeid . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $post_officeid = "" . $row['officeid'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
         if (!isset($post_officeid)) {
             echo "Office id is not defined.\n";
             exit;
@@ -246,11 +246,11 @@ if ($request == 'GET') {
 
     $query2 = "select office from " . $db_prefix . "employees where office = '" . $get_office . "'";
     $result2 = mysqli_query($db, $query2);
-    @$tmp_user_cnt = mysql_num_rows($result2);
+    @$tmp_user_cnt = mysqli_num_rows($result2);
 
     $query3 = "select * from " . $db_prefix . "groups where officeid = '" . $post_officeid . "'";
     $result3 = mysqli_query($db, $query3);
-    @$tmp_group_cnt = mysql_num_rows($result3);
+    @$tmp_group_cnt = mysqli_num_rows($result3);
 
     if ($user_cnt != $tmp_user_cnt) {
         echo "Posted user count does not equal actual user count for this office.\n";
@@ -382,13 +382,13 @@ if ($request == 'GET') {
             $query = "select * from " . $db_prefix . "groups where officeid = ('" . $post_officeid . "') order by groupname";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $tmp_group = "" . $row['groupname'] . "";
 
                 $query3 = "select * from " . $db_prefix . "employees where office = '" . $get_office . "' and groups = '" . $tmp_group . "'";
                 $result3 = mysqli_query($db, $query3);
-                @$group_user_cnt = mysql_num_rows($result3);
+                @$group_user_cnt = mysqli_num_rows($result3);
 
                 $row_count++;
                 $row_color = ($row_count % 2) ? $color2 : $color1;
@@ -424,7 +424,7 @@ if ($request == 'GET') {
 
         $officeid_query = "select * from " . $db_prefix . "offices where officename = ('" . $post_officename . "')";
         $officeid_result = mysqli_query($db, $officeid_query);
-        while ($row = mysql_fetch_array($officeid_result)) {
+        while ($row = mysqli_fetch_array($officeid_result)) {
             $post_officeid = "" . $row['officeid'] . "";
         }
 
@@ -536,13 +536,13 @@ if ($request == 'GET') {
             $query = "select * from " . $db_prefix . "groups where officeid = ('" . $post_officeid . "') order by groupname";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $tmp_group = "" . $row['groupname'] . "";
 
                 $query3 = "select * from " . $db_prefix . "employees where office = '" . $post_officename . "' and groups = '" . $tmp_group . "'";
                 $result3 = mysqli_query($db, $query3);
-                @$group_user_cnt = mysql_num_rows($result3);
+                @$group_user_cnt = mysqli_num_rows($result3);
 
                 $row_count++;
                 $row_color = ($row_count % 2) ? $color2 : $color1;

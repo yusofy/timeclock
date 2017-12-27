@@ -37,7 +37,7 @@ include 'header.php';
 $result = mysqli_query($db, "SELECT officename FROM offices ORDER BY officename");
 
 $row_count = 0;
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     $row_count++;
     if ($row_count == 1) {
         print <<<End_Of_HTML
@@ -69,7 +69,7 @@ if ($row_count > 0)
 
 End_Of_HTML;
 
-mysql_free_result($result);
+mysqli_free_result($result);
 
 if ($row_count == 0) {
     print <<<End_Of_HTML

@@ -109,7 +109,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
         }
     }
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $employees_empfullname[] = stripslashes("" . $row['empfullname'] . "");
         $employees_displayname[] = stripslashes("" . $row['displayname'] . "");
@@ -143,7 +143,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
                   order by " . $db_prefix . "info.timestamp asc";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $display_stamp = "" . $row["timestamp"] . "";
                 $time = date($timefmt, $display_stamp);
@@ -309,7 +309,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
         }
     }
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $employees_empfullname[] = stripslashes("" . $row['empfullname'] . "");
         $employees_displayname[] = stripslashes("" . $row['displayname'] . "");
@@ -344,7 +344,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
               order by " . $db_prefix . "info.timestamp asc";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $info_fullname[] = stripslashes("" . $row['fullname'] . "");
                 $info_inout[] = "" . $row['inout'] . "";
@@ -917,7 +917,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
           order by modified_when asc";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $modified_when[] = "" . $row["modified_when"] . "";
         $modified_from[] = "" . $row["modified_from"] . "";

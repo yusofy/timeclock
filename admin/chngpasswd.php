@@ -103,10 +103,10 @@ if ($request == 'GET') {
 
     $query = "select empfullname from " . $db_prefix . "employees where empfullname = '" . $get_user . "'";
     $result = mysqli_query($db, $query);
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         $username = stripslashes("" . $row['empfullname'] . "");
     }
-    mysql_free_result($result);
+    mysqli_free_result($result);
     if (!isset($username)) {
         echo "username is not defined for this user.\n";
         exit;
@@ -115,10 +115,10 @@ if ($request == 'GET') {
     if (!empty($get_office)) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $get_office . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getoffice = "" . $row['officename'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($getoffice)) {
         echo "Office is not defined for this user. Go back and associate this user with an office.\n";
@@ -159,10 +159,10 @@ if ($request == 'GET') {
     if (!empty($get_office)) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $get_office . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getoffice = "" . $row['officename'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($getoffice)) {
         echo "Office is not defined for this user. Go back and associate this user with an office.\n";
@@ -230,10 +230,10 @@ if ($request == 'GET') {
     if (!empty($post_username)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $username = "" . $row['empfullname'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
         if (!isset($username)) {
             echo "username is not defined for this user.\n";
             exit;

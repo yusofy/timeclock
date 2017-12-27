@@ -30,7 +30,7 @@ if ($request == 'POST') {
             $query = "select displayname from " . $db_prefix . "employees where displayname = '" . $displayname . "'";
             $emp_name_result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($emp_name_result)) {
+            while ($row = mysqli_fetch_array($emp_name_result)) {
                 $tmp_displayname = "" . $row['displayname'] . "";
             }
             if ((!isset($tmp_displayname)) && (!empty($displayname))) {
@@ -47,7 +47,7 @@ if ($request == 'POST') {
             $query = "select empfullname from " . $db_prefix . "employees where empfullname = '" . $fullname . "'";
             $emp_name_result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($emp_name_result)) {
+            while ($row = mysqli_fetch_array($emp_name_result)) {
                 $tmp_empfullname = "" . $row['empfullname'] . "";
             }
             if ((!isset($tmp_empfullname)) && (!empty($fullname))) {
@@ -262,7 +262,7 @@ if ($show_display_name == "yes") {
     echo "              <select name='left_displayname' tabindex=1>\n";
     echo "              <option value =''>...</option>\n";
 
-    while ($row = mysql_fetch_array($emp_name_result)) {
+    while ($row = mysqli_fetch_array($emp_name_result)) {
 
         $abc = stripslashes("" . $row['displayname'] . "");
 
@@ -275,7 +275,7 @@ if ($show_display_name == "yes") {
     }
 
     echo "              </select></td></tr>\n";
-    mysql_free_result($emp_name_result);
+    mysqli_free_result($emp_name_result);
     echo "        <tr><td height=7></td></tr>\n";
 
 } else {
@@ -285,7 +285,7 @@ if ($show_display_name == "yes") {
     echo "              <select name='left_fullname' tabindex=1>\n";
     echo "              <option value =''>...</option>\n";
 
-    while ($row = mysql_fetch_array($emp_name_result)) {
+    while ($row = mysqli_fetch_array($emp_name_result)) {
 
         $def = stripslashes("" . $row['empfullname'] . "");
         if ((isset($_COOKIE['remember_me'])) && (stripslashes($_COOKIE['remember_me']) == $def)) {
@@ -297,7 +297,7 @@ if ($show_display_name == "yes") {
     }
 
     echo "              </select></td></tr>\n";
-    mysql_free_result($emp_name_result);
+    mysqli_free_result($emp_name_result);
     echo "        <tr><td height=7></td></tr>\n";
 }
 
@@ -321,12 +321,12 @@ $punchlist_result = mysqli_query($db, $query);
 echo "              <select name='left_inout' tabindex=3>\n";
 echo "              <option value =''>...</option>\n";
 
-while ($row = mysql_fetch_array($punchlist_result)) {
+while ($row = mysqli_fetch_array($punchlist_result)) {
     echo "              <option>" . $row['punchitems'] . "</option>\n";
 }
 
 echo "              </select></td></tr>\n";
-mysql_free_result($punchlist_result);
+mysqli_free_result($punchlist_result);
 
 echo "        <tr><td height=7></td></tr>\n";
 echo "        <tr><td height=4 align=left valign=middle class=misc_items>Notes:</td></tr>\n";
@@ -394,7 +394,7 @@ if ($request == 'POST') {
     $query = "select punchitems from " . $db_prefix . "punchlist";
     $punchlist_result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($punchlist_result)) {
+    while ($row = mysqli_fetch_array($punchlist_result)) {
         $tmp_inout = "" . $row['punchitems'] . "";
     }
 
@@ -487,7 +487,7 @@ if ($request == 'POST') {
             $sel_query = "select empfullname from " . $db_prefix . "employees where displayname = '" . $displayname . "'";
             $sel_result = mysqli_query($db, $sel_query);
 
-            while ($row = mysql_fetch_array($sel_result)) {
+            while ($row = mysqli_fetch_array($sel_result)) {
                 $fullname = stripslashes("" . $row["empfullname"] . "");
                 $fullname = addslashes($fullname);
             }
@@ -516,7 +516,7 @@ if ($request == 'POST') {
             $sel_query = "select empfullname, employee_passwd from " . $db_prefix . "employees where displayname = '" . $displayname . "'";
             $sel_result = mysqli_query($db, $sel_query);
 
-            while ($row = mysql_fetch_array($sel_result)) {
+            while ($row = mysqli_fetch_array($sel_result)) {
                 $tmp_password = "" . $row["employee_passwd"] . "";
                 $fullname = "" . $row["empfullname"] . "";
             }
@@ -529,7 +529,7 @@ if ($request == 'POST') {
             $sel_query = "select empfullname, employee_passwd from " . $db_prefix . "employees where empfullname = '" . $fullname . "'";
             $sel_result = mysqli_query($db, $sel_query);
 
-            while ($row = mysql_fetch_array($sel_result)) {
+            while ($row = mysqli_fetch_array($sel_result)) {
                 $tmp_password = "" . $row["employee_passwd"] . "";
             }
 

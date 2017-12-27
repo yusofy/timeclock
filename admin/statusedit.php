@@ -43,7 +43,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "punchlist where punchitems = '" . $get_status . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $punchitem = "" . $row['punchitems'] . "";
         $color = "" . $row['color'] . "";
@@ -149,10 +149,10 @@ if ($request == 'GET') {
     if (!empty($get_status)) {
         $query = "select * from " . $db_prefix . "punchlist where punchitems = '" . $get_status . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getstatus = "" . $row['punchitems'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
         if (!isset($getstatus)) {
             echo "Status is not defined.\n";
             exit;

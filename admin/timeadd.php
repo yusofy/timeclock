@@ -103,12 +103,12 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "employees where empfullname = '" . $get_user . "' order by empfullname";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $username = stripslashes("" . $row['empfullname'] . "");
         $displayname = stripslashes("" . $row['displayname'] . "");
     }
-    mysql_free_result($result);
+    mysqli_free_result($result);
 
     $get_user = stripslashes($_GET['username']);
 
@@ -155,11 +155,11 @@ if ($request == 'GET') {
                       <select name='post_statusname'>\n";
     echo "                        <option value ='1'>Choose One</option>\n";
 
-    while ($row2 = mysql_fetch_array($result2)) {
+    while ($row2 = mysqli_fetch_array($result2)) {
         echo "                        <option>" . $row2['punchitems'] . "</option>\n";
     }
     echo "                      </select>&nbsp;*</td></tr>\n";
-    mysql_free_result($result2);
+    mysqli_free_result($result2);
 
     echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>Notes:</td><td align=left colspan=2 width=80%
                       style='padding-left:20px;'><input type='text' size='17' maxlength='250' name='post_notes'></td></tr>\n";
@@ -197,7 +197,7 @@ if ($request == 'GET') {
     if (!empty($get_user)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $get_user . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_get_user = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_get_user)) {
@@ -209,7 +209,7 @@ if ($request == 'GET') {
     if (!empty($post_username)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_username = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_username)) {
@@ -221,7 +221,7 @@ if ($request == 'GET') {
     if (!empty($post_displayname)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and displayname = '" . $post_displayname . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $tmp_post_displayname = "" . $row['displayname'] . "";
         }
         if (!isset($tmp_post_displayname)) {
@@ -236,11 +236,11 @@ if ($request == 'GET') {
             $query = "select * from " . $db_prefix . "punchlist where punchitems = '" . $post_statusname . "'";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 $punchitems = "" . $row['punchitems'] . "";
                 $color = "" . $row['color'] . "";
             }
-            mysql_free_result($result);
+            mysqli_free_result($result);
             if (!isset($punchitems)) {
                 echo "Something is fishy here.\n";
                 exit;
@@ -505,7 +505,7 @@ if ($request == 'GET') {
                       <select name='post_statusname'>\n";
         echo "                        <option value ='1'>Choose One</option>\n";
 
-        while ($row2 = mysql_fetch_array($result2)) {
+        while ($row2 = mysqli_fetch_array($result2)) {
             if ($post_statusname == "" . $row2['punchitems'] . "") {
                 echo "                        <option selected>" . $row2['punchitems'] . "</option>\n";
             } else {
@@ -513,7 +513,7 @@ if ($request == 'GET') {
             }
         }
         echo "                      </select>&nbsp;*</td></tr>\n";
-        mysql_free_result($result2);
+        mysqli_free_result($result2);
 
         echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>Notes:</td><td align=left colspan=2 width=80%
                       style='padding-left:20px;'><input type='text' size='17' maxlength='250' name='post_notes' value='$post_notes'></td></tr>\n";
@@ -553,7 +553,7 @@ if ($request == 'GET') {
         $post_username = stripslashes($post_username);
         $post_displayname = stripslashes($post_displayname);
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
 
             $info_table_timestamp = "" . $row['timestamp'] . "";
             if ($timestamp == $info_table_timestamp) {
@@ -601,7 +601,7 @@ if ($request == 'GET') {
                       <select name='post_statusname'>\n";
                 echo "                        <option value ='1'>Choose One</option>\n";
 
-                while ($row2 = mysql_fetch_array($result2)) {
+                while ($row2 = mysqli_fetch_array($result2)) {
                     if ($post_statusname == "" . $row2['punchitems'] . "") {
                         echo "                        <option selected>" . $row2['punchitems'] . "</option>\n";
                     } else {
@@ -609,7 +609,7 @@ if ($request == 'GET') {
                     }
                 }
                 echo "                      </select>&nbsp;*</td></tr>\n";
-                mysql_free_result($result2);
+                mysqli_free_result($result2);
 
                 echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>Notes:</td><td align=left colspan=2 width=80%
                       style='padding-left:20px;'><input type='text' size='17' maxlength='250' name='post_notes' value='$post_notes'></td></tr>\n";
@@ -626,7 +626,7 @@ if ($request == 'GET') {
                 exit;
             }
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
 
         // check to see if this would be the most recent time for $post_username. if so, run the update query for the employees table.
 
@@ -636,10 +636,10 @@ if ($request == 'GET') {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "'";
         $result = mysqli_query($db, $query);
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $employees_table_timestamp = "" . $row['tstamp'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
 
         if ($timestamp > $employees_table_timestamp) {
             $update_query = "update " . $db_prefix . "employees set tstamp = '" . $timestamp . "' where empfullname = '" . $post_username . "'";

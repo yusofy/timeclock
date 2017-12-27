@@ -86,7 +86,7 @@ function disabled_acct($get_user) {
     $query = "select empfullname, disabled from employees where empfullname = '" . addslashes($get_user) . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         if ("" . $row["disabled"] . "" == 1) {
             echo "<table width=100% border=0 cellpadding=7 cellspacing=1>\n";

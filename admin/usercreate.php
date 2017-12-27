@@ -141,10 +141,10 @@ if ($request == 'GET') {
     $query5 = "select empfullname from " . $db_prefix . "employees where empfullname = '" . $post_username . "' order by empfullname";
     $result5 = mysqli_query($db, $query5);
 
-    while ($row = mysql_fetch_array($result5)) {
+    while ($row = mysqli_fetch_array($result5)) {
         $tmp_username = "" . $row['empfullname'] . "";
     }
-    mysql_free_result($result5);
+    mysqli_free_result($result5);
 
     $post_username = stripslashes($post_username);
     $display_name = stripslashes($display_name);
@@ -320,10 +320,10 @@ if ($request == 'GET') {
         if (!empty($office_name)) {
             $query = "select * from " . $db_prefix . "offices where officename = '" . $office_name . "'";
             $result = mysqli_query($db, $query);
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 $tmp_officename = "" . $row['officename'] . "";
             }
-            mysql_free_result($result);
+            mysqli_free_result($result);
             if (!isset($tmp_officename)) {
                 echo "Office is not defined.\n";
                 exit;
@@ -333,10 +333,10 @@ if ($request == 'GET') {
         if (!empty($group_name)) {
             $query = "select * from " . $db_prefix . "groups where groupname = '" . $group_name . "'";
             $result = mysqli_query($db, $query);
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 $tmp_groupname = "" . $row['groupname'] . "";
             }
-            mysql_free_result($result);
+            mysqli_free_result($result);
             if (!isset($tmp_officename)) {
                 echo "Group is not defined.\n";
                 exit;
@@ -510,7 +510,7 @@ if ($request == 'GET') {
           order by empfullname";
     $result4 = mysqli_query($db, $query4);
 
-    while ($row = mysql_fetch_array($result4)) {
+    while ($row = mysqli_fetch_array($result4)) {
 
         $username = stripslashes("" . $row['empfullname'] . "");
         $displayname = stripslashes("" . $row['displayname'] . "");
@@ -522,7 +522,7 @@ if ($request == 'GET') {
         $time_admin = "" . $row['time_admin'] . "";
         $disabled = "" . $row['disabled'] . "";
     }
-    mysql_free_result($result4);
+    mysqli_free_result($result4);
 
     echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>Username:</td><td align=left class=table_rows
                       colspan=2 width=80% style='padding-left:20px;'>$username</td></tr>\n";

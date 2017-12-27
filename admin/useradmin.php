@@ -66,16 +66,16 @@ echo "      </table></td>\n";
 
 $user_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees
                            order by empfullname");
-@$user_count_rows = mysql_num_rows($user_count);
+@$user_count_rows = mysqli_num_rows($user_count);
 
 $admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where admin = '1'");
-@$admin_count_rows = mysql_num_rows($admin_count);
+@$admin_count_rows = mysqli_num_rows($admin_count);
 
 $time_admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where time_admin = '1'");
-@$time_admin_count_rows = mysql_num_rows($time_admin_count);
+@$time_admin_count_rows = mysqli_num_rows($time_admin_count);
 
 $reports_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where reports = '1'");
-@$reports_count_rows = mysql_num_rows($reports_count);
+@$reports_count_rows = mysqli_num_rows($reports_count);
 
 echo "    <td align=left class=right_main scope=col>\n";
 echo "      <table width=100% height=100% border=0 cellpadding=10 cellspacing=1>\n";
@@ -112,7 +112,7 @@ $query = "select empfullname, displayname, email, groups, office, admin, reports
           order by empfullname";
 $result = mysqli_query($db, $query);
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 
 $empfullname = stripslashes("" . $row['empfullname'] . "");
 $displayname = stripslashes("" . $row['displayname'] . "");

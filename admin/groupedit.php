@@ -97,7 +97,7 @@ if ($request == 'GET') {
     $query = "select * from " . $db_prefix . "groups, " . $db_prefix . "offices where officename = '" . $get_office . "' and groupname = '" . $get_group . "'";
     $result = mysqli_query($db, $query);
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $officename = "" . $row['officename'] . "";
         $officeid = "" . $row['officeid'] . "";
@@ -116,7 +116,7 @@ if ($request == 'GET') {
 
     $query2 = "select * from " . $db_prefix . "employees where office = '" . $get_office . "' and groups = '" . $get_group . "'";
     $result2 = mysqli_query($db, $query2);
-    @$user_cnt = mysql_num_rows($result2);
+    @$user_cnt = mysqli_num_rows($result2);
 
     echo "            <form name='form' action='$self' method='post'>\n";
     echo "            <table align=center class=table_border width=60% border=0 cellpadding=3 cellspacing=0>\n";
@@ -139,7 +139,7 @@ if ($request == 'GET') {
     echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>New Parent Office:</td><td colspan=2 width=80%
                       style='padding-left:20px;'><select name='post_officename'>\n";
 
-    while ($row = mysql_fetch_array($result3)) {
+    while ($row = mysqli_fetch_array($result3)) {
         if ("" . $row['officename'] . "" == $get_office) {
             echo "                    <option selected>" . $row['officename'] . "</option>\n";
         } else {
@@ -165,19 +165,19 @@ if ($request == 'GET') {
 
     $user_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where groups = ('" . $get_group . "') and office = ('" . $get_office . "')
                            order by empfullname");
-    @$user_count_rows = mysql_num_rows($user_count);
+    @$user_count_rows = mysqli_num_rows($user_count);
 
     $admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where admin = '1' and groups = ('" . $get_group . "')
                             and office = ('" . $get_office . "')");
-    @$admin_count_rows = mysql_num_rows($admin_count);
+    @$admin_count_rows = mysqli_num_rows($admin_count);
 
     $time_admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where time_admin = '1' and groups = ('" . $get_group . "')
                                  and office = ('" . $get_office . "')");
-    @$time_admin_count_rows = mysql_num_rows($time_admin_count);
+    @$time_admin_count_rows = mysqli_num_rows($time_admin_count);
 
     $reports_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where reports = '1' and groups = ('" . $get_group . "')
                               and office = ('" . $get_office . "')");
-    @$reports_count_rows = mysql_num_rows($reports_count);
+    @$reports_count_rows = mysqli_num_rows($reports_count);
 
     if ($user_count_rows > '0') {
 
@@ -209,7 +209,7 @@ if ($request == 'GET') {
           where groups = ('" . $get_group . "') and office = ('" . $get_office . "') order by empfullname";
         $result = mysqli_query($db, $query);
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
 
             $empfullname = stripslashes("" . $row['empfullname'] . "");
             $displayname = stripslashes("" . $row['displayname'] . "");
@@ -301,10 +301,10 @@ if ($request == 'GET') {
     if (!empty($get_office)) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $get_office . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getoffice = "" . $row['officename'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($getoffice)) {
         echo "Office is not defined for this user. Go back and associate this user with an office.\n";
@@ -314,10 +314,10 @@ if ($request == 'GET') {
     if (!empty($get_group)) {
         $query = "select * from " . $db_prefix . "groups where groupname = '" . $get_group . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $getgroup = "" . $row['groupname'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($getgroup)) {
         echo "Group is not defined for this user. Go back and associate this user with a group.\n";
@@ -327,11 +327,11 @@ if ($request == 'GET') {
     if (!empty($post_officename)) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $post_officename . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $officename = "" . $row['officename'] . "";
             $tmp_officeid = "" . $row['officeid'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($officename)) {
         echo "Office name is not defined for this group.\n";
@@ -341,11 +341,11 @@ if ($request == 'GET') {
     if (!empty($post_officeid)) {
         $query = "select * from " . $db_prefix . "offices where officeid = '" . $post_officeid . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $post_officeid = "" . $row['officeid'] . "";
             $post_officeid = $tmp_officeid;
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
         if (!isset($post_officeid)) {
             echo "Office id is not defined for this group.\n";
             exit;
@@ -357,10 +357,10 @@ if ($request == 'GET') {
     if (!empty($orig_officeid)) {
         $query = "select * from " . $db_prefix . "offices where officeid = '" . $orig_officeid . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $origofficeid = "" . $row['officeid'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($origofficeid)) {
         echo "Office name is not defined for this group.\n";
@@ -370,10 +370,10 @@ if ($request == 'GET') {
     if (!empty($post_groupid)) {
         $query = "select * from " . $db_prefix . "groups where groupid = '" . $post_groupid . "'";
         $result = mysqli_query($db, $query);
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $groupid = "" . $row['groupid'] . "";
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
     if (!isset($groupid)) {
         echo "Group id is not defined for this group.\n";
@@ -382,7 +382,7 @@ if ($request == 'GET') {
 
     $query = "select * from " . $db_prefix . "employees where office = '" . $get_office . "' and groups = '" . $get_group . "'";
     $result = mysqli_query($db, $query);
-    @$tmp_user_cnt = mysql_num_rows($result);
+    @$tmp_user_cnt = mysqli_num_rows($result);
 
     if ($user_cnt != $tmp_user_cnt) {
         echo "Posted user count does not equal actual user count for this group.\n";
@@ -399,7 +399,7 @@ if ($request == 'GET') {
         $query = "select * from " . $db_prefix . "groups where groupname = '" . $post_groupname . "' and officeid = '" . $post_officeid . "'";
         $result = mysqli_query($db, $query);
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $dupe = '1';
         }
     }
@@ -524,7 +524,7 @@ if ($request == 'GET') {
         echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>New Parent Office:</td><td colspan=2 width=80%
                       style='padding-left:20px;'><select name='post_officename'>\n";
 
-        while ($row = mysql_fetch_array($result3)) {
+        while ($row = mysqli_fetch_array($result3)) {
             if ("" . $row['officename'] . "" == $post_officename) {
                 $post_officeid = "" . $row['officeid'] . "";
                 echo "                    <option selected>" . $row['officename'] . "</option>\n";
@@ -553,19 +553,19 @@ if ($request == 'GET') {
 
         $user_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where groups = ('" . $get_group . "') and office = ('" . $get_office . "')
                            order by empfullname");
-        @$user_count_rows = mysql_num_rows($user_count);
+        @$user_count_rows = mysqli_num_rows($user_count);
 
         $admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where admin = '1' and groups = ('" . $get_group . "')
                             and office = ('" . $get_office . "')");
-        @$admin_count_rows = mysql_num_rows($admin_count);
+        @$admin_count_rows = mysqli_num_rows($admin_count);
 
         $time_admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where time_admin = '1' and groups = ('" . $get_group . "')
                                  and office = ('" . $get_office . "')");
-        @$time_admin_count_rows = mysql_num_rows($time_admin_count);
+        @$time_admin_count_rows = mysqli_num_rows($time_admin_count);
 
         $reports_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where reports = '1' and groups = ('" . $get_group . "')
                               and office = ('" . $get_office . "')");
-        @$reports_count_rows = mysql_num_rows($reports_count);
+        @$reports_count_rows = mysqli_num_rows($reports_count);
 
         if ($user_count_rows > '0') {
 
@@ -597,7 +597,7 @@ if ($request == 'GET') {
           where groups = ('" . $get_group . "') and office = ('" . $get_office . "') order by empfullname";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $empfullname = stripslashes("" . $row['empfullname'] . "");
                 $displayname = stripslashes("" . $row['displayname'] . "");
@@ -707,19 +707,19 @@ if ($request == 'GET') {
 
         $user_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where groups = ('" . $post_groupname . "') and office = ('" . $post_officename . "')
                            order by empfullname");
-        @$user_count_rows = mysql_num_rows($user_count);
+        @$user_count_rows = mysqli_num_rows($user_count);
 
         $admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where admin = '1' and groups = ('" . $post_groupname . "') and
                             office = ('" . $post_officename . "')");
-        @$admin_count_rows = mysql_num_rows($admin_count);
+        @$admin_count_rows = mysqli_num_rows($admin_count);
 
         $time_admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where time_admin = '1' and groups = ('" . $post_groupname . "') and
                                  office = ('" . $post_officename . "')");
-        @$time_admin_count_rows = mysql_num_rows($time_admin_count);
+        @$time_admin_count_rows = mysqli_num_rows($time_admin_count);
 
         $reports_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where reports = '1' and groups = ('" . $post_groupname . "') and
                               office = ('" . $post_officename . "')");
-        @$reports_count_rows = mysql_num_rows($reports_count);
+        @$reports_count_rows = mysqli_num_rows($reports_count);
 
         if ($user_count_rows > '0') {
 
@@ -752,7 +752,7 @@ if ($request == 'GET') {
           where groups = ('" . $post_groupname . "') order by empfullname";
             $result = mysqli_query($db, $query);
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $empfullname = stripslashes("" . $row['empfullname'] . "");
                 $displayname = stripslashes("" . $row['displayname'] . "");

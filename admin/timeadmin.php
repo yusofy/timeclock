@@ -88,7 +88,7 @@ $query = "select empfullname, displayname, email, groups, office, admin, reports
           order by empfullname";
 $result = mysqli_query($db, $query);
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 
     $empfullname = stripslashes("" . $row['empfullname'] . "");
     $displayname = stripslashes("" . $row['displayname'] . "");

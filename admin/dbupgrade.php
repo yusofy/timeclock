@@ -78,7 +78,7 @@ echo "            <br />\n";
 // determine the privileges of the PHP Timeclock user //
 
 $result = mysqli_query($db, "show grants for current_user()");
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     $abc = stripslashes("" . $row["0"] . "");
     if (((preg_match("/\bgrant\b/i", $abc)) && (preg_match("/\bselect\b/i", $abc)) &&
          (preg_match("/\binsert\b/i", $abc)) && (preg_match("/\bupdate\b/i", $abc)) &&
@@ -97,7 +97,7 @@ if (!empty($count)) {
         $query_admin = "select empfullname from " . $db_prefix . "employees where empfullname = 'admin'";
         $result_admin = mysqli_query($db, $query_admin);
 
-        while ($row = mysql_fetch_array($result_admin)) {
+        while ($row = mysqli_fetch_array($result_admin)) {
             $user_admin = "" . $row["empfullname"] . "";
         }
 
@@ -159,7 +159,7 @@ if (!empty($count)) {
 
         $field = "employee_passwd";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field VARCHAR(25) NOT NULL;");
@@ -170,7 +170,7 @@ if (!empty($count)) {
 
         $field = "displayname";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field VARCHAR(50) NOT NULL;");
@@ -181,7 +181,7 @@ if (!empty($count)) {
 
         $field = "email";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field VARCHAR(75) NOT NULL;");
@@ -192,7 +192,7 @@ if (!empty($count)) {
 
         $field = "groups";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field VARCHAR(50) NOT NULL;");
@@ -203,7 +203,7 @@ if (!empty($count)) {
 
         $field = "office";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field VARCHAR(50) NOT NULL;");
@@ -214,7 +214,7 @@ if (!empty($count)) {
 
         $field = "admin";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field TINYINT(1) NOT NULL default '0';");
@@ -225,7 +225,7 @@ if (!empty($count)) {
 
         $field = "reports";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field TINYINT(1) NOT NULL default '0';");
@@ -236,7 +236,7 @@ if (!empty($count)) {
 
         $field = "time_admin";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field TINYINT(1) NOT NULL default '0';");
@@ -247,7 +247,7 @@ if (!empty($count)) {
 
         $field = "disabled";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "employees LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "employees ADD $field TINYINT(1) NOT NULL default '0';");
@@ -259,7 +259,7 @@ if (!empty($count)) {
         // employees table changes //
 
         $result = mysqli_query($db, "SHOW FIELDS FROM " . $db_prefix . "employees");
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $name = "" . $row["Field"] . "";
             $type = "" . $row["Type"] . "";
             $tmp_type = strtoupper($type);
@@ -278,13 +278,13 @@ if (!empty($count)) {
                 $passed_or_not = "1";
             }
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
 
         // info table additions //
 
         $field = "ipaddress";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "info LIKE '" . $field . "'");
-        @$rows = mysql_num_rows($result);
+        @$rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "info ADD $field VARCHAR(39) NOT NULL;");
@@ -296,7 +296,7 @@ if (!empty($count)) {
         // info table changes //
 
         $result = mysqli_query($db, "SHOW FIELDS FROM " . $db_prefix . "info");
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $name = "" . $row["Field"] . "";
             $type = "" . $row["Type"] . "";
             $tmp_type = strtoupper($type);
@@ -315,13 +315,13 @@ if (!empty($count)) {
                 $passed_or_not = "1";
             }
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
 
         // punchlist table additions //
 
         $field = "in_or_out";
         $result = mysqli_query($db, "SHOW fields from " . $db_prefix . "punchlist LIKE '" . $field . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $passwd_query = mysqli_query($db, "ALTER TABLE " . $db_prefix . "punchlist ADD $field TINYINT(1) NOT NULL default '0';");
@@ -333,7 +333,7 @@ if (!empty($count)) {
         // punchlist table changes //
 
         $result = mysqli_query($db, "SHOW FIELDS FROM " . $db_prefix . "punchlist");
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $name = "" . $row["Field"] . "";
             $type = "" . $row["Type"] . "";
             $tmp_type = strtoupper($type);
@@ -345,13 +345,13 @@ if (!empty($count)) {
                 $passed_or_not = "1";
             }
         }
-        mysql_free_result($result);
+        mysqli_free_result($result);
 
         // add metars table //
 
         $table = "metars";
         $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $metars_query = mysqli_query($db, "CREATE TABLE " . $db_prefix . "metars (metar varchar(255) NOT NULL default '',
@@ -366,7 +366,7 @@ if (!empty($count)) {
 
         $table = "dbversion";
         $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $dbversion_query = mysqli_query($db, "CREATE TABLE " . $db_prefix . "dbversion (dbversion decimal(5,1) NOT NULL default '0.0',
@@ -380,11 +380,11 @@ if (!empty($count)) {
 
         $table = "dbversion";
         $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (!empty($rows)) {
             $dbversion_result = mysqli_query($db, "select * from " . $db_prefix . "dbversion");
-            while ($row = mysql_fetch_array($dbversion_result)) {
+            while ($row = mysqli_fetch_array($dbversion_result)) {
                 $tmp_dbversion = "" . $row["dbversion"] . "";
             }
             if (!isset($tmp_dbversion)) {
@@ -405,7 +405,7 @@ if (!empty($count)) {
 
         $table = "offices";
         $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $metars_query = mysqli_query($db, "CREATE TABLE " . $db_prefix . "offices (officename varchar(50) NOT NULL default '',
@@ -420,7 +420,7 @@ if (!empty($count)) {
 
         $table = "groups";
         $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $metars_query = mysqli_query($db, "CREATE TABLE " . $db_prefix . "groups (groupname varchar(50) NOT NULL default '',
@@ -436,7 +436,7 @@ if (!empty($count)) {
 
         $table = "audit";
         $result = mysqli_query($db, "SHOW TABLES LIKE '" . $db_prefix . $table . "'");
-        $rows = mysql_num_rows($result);
+        $rows = mysqli_num_rows($result);
 
         if (empty($rows)) {
             $audit_query = mysqli_query($db, "CREATE TABLE " . $db_prefix . "audit (modified_by_ip varchar(39) NOT NULL default '',
@@ -461,7 +461,7 @@ if (!empty($count)) {
                 $query_admin = "select empfullname from " . $db_prefix . "employees where empfullname = '" . $admin . "'";
                 $result_admin = mysqli_query($db, $query_admin);
 
-                while ($row_admin = mysql_fetch_array($result_admin)) {
+                while ($row_admin = mysqli_fetch_array($result_admin)) {
                     $admin_user = stripslashes("" . $row_admin['empfullname'] . "");
                 }
 
@@ -480,7 +480,7 @@ if (!empty($count)) {
 
         if (!empty($emp_tstamp_count)) {
             $emp_tstamp_result = mysqli_query($db, "update " . $db_prefix . "employees set tstamp = (unix_timestamp(tstamp) - '" . $gmt_offset . "')");
-            $employee_rows = mysql_affected_rows();
+            $employee_rows = mysqli_affected_rows();
 
             if (!empty($employee_rows)) {
                 echo "                <tr><td width=10 class=table_rows style='padding-left:25px;color:#FF9900;font-weight:bold;'>Converted</td><td class=table_rows
@@ -492,7 +492,7 @@ if (!empty($count)) {
 
         if (!empty($info_timestamp_count)) {
             $info_timestamp_result = mysqli_query($db, "update " . $db_prefix . "info set timestamp = (unix_timestamp(timestamp) - '" . $gmt_offset . "')");
-            $info_rows = mysql_affected_rows();
+            $info_rows = mysqli_affected_rows();
 
             if (!empty($info_rows)) {
                 echo "                <tr><td width=10 class=table_rows style='padding-left:25px;color:purple;font-weight:bold;'>Converted</td><td class=table_rows
