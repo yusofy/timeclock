@@ -17,10 +17,7 @@ username and password information!
                   the install.
               --- $db_name is the mysql database you created during the install. */
 
-$db_hostname = "localhost";
-$db_username = "timeclock";
-$db_password = "P4ssw0rd1!";
-$db_name = "timeclock";
+include 'creds.php';
 
 
 /* --- RECOMMENDED CHANGES --- */
@@ -336,7 +333,7 @@ $use_server_tz = "no";
 /* Include local weather info on the left side of the main page just below the Submit button.
    If you would like to include this feature, set $display_weather to "yes". Default is "no". */
 
-$display_weather = "yes";
+$display_weather = "no";
 
 
 /* ICAO (International Civil Aviation Organization) for your local airport. This is the
