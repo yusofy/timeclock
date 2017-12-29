@@ -21,6 +21,7 @@ $db_hostname = "";
 $db_username = "timeclock";
 $db_password = "";
 $db_name = "timeclock";
+$test = "test";
 
 
 /* --- RECOMMENDED CHANGES --- */
