@@ -17,7 +17,10 @@ username and password information!
                   the install.
               --- $db_name is the mysql database you created during the install. */
 
-include 'creds.php';
+$db_hostname = "";
+$db_username = "timeclock";
+$db_password = "";
+$db_name = "timeclock";
 
 
 /* --- RECOMMENDED CHANGES --- */
