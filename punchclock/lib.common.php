@@ -312,7 +312,7 @@ function turn_off_magic_quotes() {
         remove_magic_quotes($_REQUEST);
         ini_set('magic_quotes_gpc', 0);
     }
-    set_magic_quotes_runtime(0);
+    //set_magic_quotes_runtime(0);
 }
 
 function remove_magic_quotes(&$array) {
