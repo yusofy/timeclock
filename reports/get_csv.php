@@ -21,7 +21,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
     $fullname = $_GET['fullname'];
     $from_timestamp = $_GET['from'];
     $to_timestamp = $_GET['to'];
-    $tzo = $_GET['tzo'];
+    @$tzo = $_GET['tzo'];
 
     $employees_cnt = 0;
     $employees_empfullname = array();
@@ -200,7 +200,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
     $fullname = $_GET['fullname'];
     $from_timestamp = $_GET['from'];
     $to_timestamp = $_GET['to'];
-    $tzo = $_GET['tzo'];
+    @$tzo = $_GET['tzo'];
     $tmp_paginate = $_GET['paginate'];
     $tmp_round_time = $_GET['round'];
     $tmp_show_details = $_GET['details'];
@@ -348,7 +348,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
 
                 $info_fullname[] = stripslashes("" . $row['fullname'] . "");
                 $info_inout[] = "" . $row['inout'] . "";
-                $info_timestamp[] = "" . $row['timestamp'] . "" + $tzo;
+                $info_timestamp[] = "" . $row['timestamp'] . "" + @$tzo;
                 $info_notes[] = "" . $row['notes'] . "";
                 $info_ipaddress[] = "" . $row['ipaddress'] . "";
                 $punchlist_in_or_out[] = "" . $row['in_or_out'] . "";
@@ -428,7 +428,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
                         } else {
                             $punch_cnt++;
                             if ($y == $info_cnt - 1) {
-                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + $tzo)) && ($info_date[$y] == $rpt_date)) {
+                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + @$tzo)) && ($info_date[$y] == $rpt_date)) {
                                     if ($status == "in") {
                                         $secs = $secs + ($rpt_stamp - $info_timestamp[$y]) + ($info_timestamp[$y] - $in_time);
                                     } elseif ($status == "out") {
@@ -437,9 +437,9 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
                                     $currently_punched_in = '1';
                                 } elseif (($info_timestamp[$y] <= $rpt_stamp) && ($info_date[$y] == $rpt_date)) {
                                     if ($status == "in") {
-                                        $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]) + ($info_timestamp[$y] - $in_time);
+                                        $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]) + ($info_timestamp[$y] - $in_time);
                                     } elseif ($status == "out") {
-                                        $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]);
+                                        $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]);
                                     }
                                     $currently_punched_in = '1';
                                 } else {
@@ -630,11 +630,11 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
                             }
                         } else {
                             if ($y == $info_cnt - 1) {
-                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + $tzo)) && ($info_date[$y] == $rpt_date)) {
+                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + @$tzo)) && ($info_date[$y] == $rpt_date)) {
                                     $secs = $secs + ($rpt_stamp - $info_timestamp[$y]);
                                     $currently_punched_in = '1';
                                 } elseif (($info_timestamp[$y] <= $rpt_stamp) && ($info_date[$y] == $rpt_date)) {
-                                    $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]);
+                                    $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]);
                                     $currently_punched_in = '1';
                                 } else {
                                     $secs = $secs + (($info_end_time[$y] + 1) - $info_timestamp[$y]);
@@ -703,7 +703,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
                         $out = 1;
                         $status = "out";
                         if ($info_date[$y] == $from_date) {
-                            $secs = $info_timestamp[$y] - $from_timestamp - $tzo;
+                            $secs = $info_timestamp[$y] - $from_timestamp - @$tzo;
                         } else {
                             $secs = $info_timestamp[$y] - $info_start_time[$y];
                         }
@@ -767,11 +767,11 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
                         $in_time = $info_timestamp[$y];
                         $previous_days_end_time = $info_end_time[$y] + 1;
                         if ($y == $info_cnt - 1) {
-                            if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + $tzo)) && ($info_date[$y] == $rpt_date)) {
+                            if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + @$tzo)) && ($info_date[$y] == $rpt_date)) {
                                 $secs = $secs + ($rpt_stamp - $info_timestamp[$y]);
                                 $currently_punched_in = '1';
                             } elseif (($info_timestamp[$y] <= $rpt_stamp) && ($info_date[$y] == $rpt_date)) {
-                                $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]);
+                                $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]);
                                 $currently_punched_in = '1';
                             } else {
                                 $secs = $secs + (($info_end_time[$y] + 1) - $info_timestamp[$y]);
@@ -899,7 +899,7 @@ if (($_GET['rpt'] == 'timerpt') && (isset($_GET['display_ip'])) && (isset($_GET[
     $tmp_csv = $_GET['csv'];
     $from_timestamp = $_GET['from'];
     $to_timestamp = $_GET['to'];
-    $tzo = $_GET['tzo'];
+    @$tzo = $_GET['tzo'];
 
     $row_count = 0;
     $page_count = 0;

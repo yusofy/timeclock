@@ -459,7 +459,7 @@ if ($request == 'GET') {
 
                     // begin post validation //
 
-                    $tmp_time[$x] = date("$timefmt", $final_mysqli_timestamp[$x] + $tzo);
+                    $tmp_time[$x] = date("$timefmt", $final_mysqli_timestamp[$x] + @$tzo);
                     if ($tmp_time[$x] != $final_time[$x]) {
                         echo "Something is fishy here.\n";
                         exit;
@@ -596,7 +596,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
@@ -744,7 +744,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
