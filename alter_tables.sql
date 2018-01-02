@@ -1,6 +1,28 @@
 # if you would like to utilize a table prefix when upgrading these tables, be sure to use the one you have setup in config.inc.php.
 # this option is $db_prefix.  if you are unaware of what is meant by utilizing a 'table prefix', then please disregard.
 
+###################################################################
+#                                                                 #
+# If upgrading from version 1.01 or 1.0, run these sql statements #
+# below on the PHP Timeclock database.                            #
+#                                                                 #
+###################################################################
+#
+# dbversion table
+#
+
+UPDATE `dbversion`
+SET `dbversion` = '1.5';
+
+# --------------------------------------------------------
+
+#
+# info table
+#
+
+ALTER TABLE info ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+
+# --------------------------------------------------------
 
 ###################################################################
 #                                                                 #
