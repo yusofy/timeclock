@@ -622,7 +622,7 @@ if ($request == 'GET') {
                             $post_date = "$month/$day/$year";
                         }
 
-                        $new_tstamp[$x] = strtotime($post_date . " " . $edit_time_textbox[$x]) - $tzo;
+                        $new_tstamp[$x] = strtotime($post_date . " " . $edit_time_textbox[$x]) - @$tzo;
 
                         if ($new_tstamp[$x] > $tmp_tstamp) {
                             $query2 = "update " . $db_prefix . "employees set tstamp = '" . $new_tstamp[$x] . "' where empfullname = '" . $final_username[$x] . "'";
@@ -799,7 +799,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysqli_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";

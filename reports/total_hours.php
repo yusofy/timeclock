@@ -742,18 +742,18 @@ if ($request == 'GET') {
 
     if (!empty($from_date)) {
         $from_date = "$from_month/$from_day/$from_year";
-        $from_timestamp = strtotime($from_date . " " . $report_start_time) - $tzo;
+        $from_timestamp = strtotime($from_date . " " . $report_start_time) - @$tzo;
         $from_date = $_POST['from_date'];
     }
 
     if (!empty($to_date)) {
         $to_date = "$to_month/$to_day/$to_year";
-        $to_timestamp = strtotime($to_date . " " . $report_end_time) - $tzo + 60;
+        $to_timestamp = strtotime($to_date . " " . $report_end_time) - @$tzo + 60;
         $to_date = $_POST['to_date'];
     }
 
-    //if (!empty($from_date)) {$from_timestamp = strtotime($from_date . " " . $report_start_time) - $tzo;}
-    //if (!empty($from_date)) {$to_timestamp = strtotime($to_date . " " . $report_end_time) - $tzo + 60;}
+    //if (!empty($from_date)) {$from_timestamp = strtotime($from_date . " " . $report_start_time) - @$tzo;}
+    //if (!empty($from_date)) {$to_timestamp = strtotime($to_date . " " . $report_end_time) - @$tzo + 60;}
 
     //if (!empty($from_date)) {$from_timestamp = strtotime($from_date) - @$tzo;}
     //if (!empty($to_date)) {$to_timestamp = strtotime($to_date) + 86400 - @$tzo;}
@@ -801,7 +801,7 @@ if ($request == 'GET') {
         echo "               <tr class=notprint><td width=80%></td><td nowrap style='font-size:9px;color:#000000;'><a style='color:#27408b;font-size:9px;
                          text-decoration:underline;'
                          href=\"get_csv.php?rpt=hrs_wkd&display_ip=$tmp_display_ip&csv=$tmp_csv&office=$office_name&group=$group_name&fullname=$fullname
-&from=$from_timestamp&to=$to_timestamp&tzo=$tzo&paginate=$tmp_paginate&round=$tmp_round_time&details=$tmp_show_details&rpt_run_on=$rpt_stamp
+&from=$from_timestamp&to=$to_timestamp&tzo=@$tzo&paginate=$tmp_paginate&round=$tmp_round_time&details=$tmp_show_details&rpt_run_on=$rpt_stamp
 &rpt_date=$rpt_date&from_date=$from_date\">Download CSV File</a></td></tr>\n";
     }
     echo "</table>\n";
@@ -952,7 +952,7 @@ if ($request == 'GET') {
 
                 $info_fullname[] = stripslashes("" . $row['fullname'] . "");
                 $info_inout[] = "" . $row['inout'] . "";
-                $info_timestamp[] = "" . $row['timestamp'] . "" + $tzo;
+                $info_timestamp[] = "" . $row['timestamp'] . "" + @$tzo;
                 $info_notes[] = "" . $row['notes'] . "";
                 $info_ipaddress[] = "" . $row['ipaddress'] . "";
                 $punchlist_in_or_out[] = "" . $row['in_or_out'] . "";
@@ -1058,7 +1058,7 @@ if ($request == 'GET') {
                         } else {
                             $punch_cnt++;
                             if ($y == $info_cnt - 1) {
-                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + $tzo)) && ($x_info_date[$y] == $rpt_date)) {
+                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + @$tzo)) && ($x_info_date[$y] == $rpt_date)) {
                                     if ($status == "in") {
                                         $secs = $secs + ($rpt_stamp - $info_timestamp[$y]) + ($info_timestamp[$y] - $in_time);
                                     } elseif ($status == "out") {
@@ -1067,9 +1067,9 @@ if ($request == 'GET') {
                                     $currently_punched_in = '1';
                                 } elseif (($info_timestamp[$y] <= $rpt_stamp) && ($x_info_date[$y] == $rpt_date)) {
                                     if ($status == "in") {
-                                        $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]) + ($info_timestamp[$y] - $in_time);
+                                        $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]) + ($info_timestamp[$y] - $in_time);
                                     } elseif ($status == "out") {
-                                        $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]);
+                                        $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]);
                                     }
                                     $currently_punched_in = '1';
                                 } else {
@@ -1338,11 +1338,11 @@ if ($request == 'GET') {
                             }
                         } else {
                             if ($y == $info_cnt - 1) {
-                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + $tzo)) && ($x_info_date[$y] == $rpt_date)) {
+                                if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + @$tzo)) && ($x_info_date[$y] == $rpt_date)) {
                                     $secs = $secs + ($rpt_stamp - $info_timestamp[$y]);
                                     $currently_punched_in = '1';
                                 } elseif (($info_timestamp[$y] <= $rpt_stamp) && ($x_info_date[$y] == $rpt_date)) {
-                                    $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]);
+                                    $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]);
                                     $currently_punched_in = '1';
                                 } else {
                                     $secs = $secs + (($info_end_time[$y] + 1) - $info_timestamp[$y]);
@@ -1442,7 +1442,7 @@ if ($request == 'GET') {
                         $out = 1;
                         $status = "out";
                         if ($info_date[$y] == $from_date) {
-                            $secs = $info_timestamp[$y] - $from_timestamp - $tzo;
+                            $secs = $info_timestamp[$y] - $from_timestamp - @$tzo;
                         } else {
                             $secs = $info_timestamp[$y] - $info_start_time[$y];
                         }
@@ -1526,11 +1526,11 @@ if ($request == 'GET') {
                         $in_time = $info_timestamp[$y];
                         $previous_days_end_time = $info_end_time[$y] + 1;
                         if ($y == $info_cnt - 1) {
-                            if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + $tzo)) && ($x_info_date[$y] == $rpt_date)) {
+                            if (($info_timestamp[$y] <= $rpt_stamp) && ($rpt_stamp < ($to_timestamp + @$tzo)) && ($x_info_date[$y] == $rpt_date)) {
                                 $secs = $secs + ($rpt_stamp - $info_timestamp[$y]);
                                 $currently_punched_in = '1';
                             } elseif (($info_timestamp[$y] <= $rpt_stamp) && ($x_info_date[$y] == $rpt_date)) {
-                                $secs = $secs + (($to_timestamp + $tzo) - $info_timestamp[$y]);
+                                $secs = $secs + (($to_timestamp + @$tzo) - $info_timestamp[$y]);
                                 $currently_punched_in = '1';
                             } else {
                                 $secs = $secs + (($info_end_time[$y] + 1) - $info_timestamp[$y]);
